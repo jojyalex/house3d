@@ -97,21 +97,20 @@ levels:
       - {id: A_gf_kit,   type: door, room: gf_kitchen,    side: south, offset: 700,  width: 900}
       - {id: A_gf_bed,   type: door, room: gf_bedroom,    side: north, offset: 2100, width: 900}
       - {id: A_gf_tatt,  type: door, room: gf_toilet_att, side: west,  offset: 950,  width: 600}
-      - {id: L_gf_lift,  type: door, room: gf_lift,       side: north, offset: 300,  width: 900,  leaf: closed, color: '#9aa3ad'}
+      - {id: L_gf_lift,  type: door, room: gf_lift,       side: north, offset: 300,  width: 900,  leaf: lift, color: '#9aa3ad'}
       - {id: A_gf_open,  type: door, room: gf_living,     side: west,  offset: 0,    width: 2650, height: 2850, leaf: false}
       - {id: A_gf_bay,   type: door, room: gf_living_bay, side: north, offset: 150,  width: 1960, leaf: false}
     canopies: []
     furniture:
       # living: TV feature wall on the north, low sofa facing it
       - {room: gf_living, type: feature_wall, at: [1100, 2553], size: [2700, 40], facing: south, finish: slats, height: 2650}
-      - {room: gf_living, type: feature_wall, at: [1700, 57],   size: [2200, 40], facing: north, finish: wallpaper, height: 2650}
       - {room: gf_living, type: tv_unit,      at: [1450, 2133], size: [2000, 420], facing: south}
+      - {room: gf_living, type: tv,           at: [1700, 2313], size: [1500, 40], facing: south, mount: 620, finish: stand}
       - {room: gf_living, type: sofa,         at: [1700, 250],  size: [2100, 900], facing: north, color: '#9b9286'}
       - {room: gf_living, type: coffee_table, at: [2250, 1380], size: [1050, 550]}
       - {room: gf_living, type: rug,          at: [1350, 150],  size: [2650, 1900], color: '#cdc3b3'}
       - {room: gf_living, type: floor_lamp,   at: [1300, 300],  size: [350, 350]}
       - {room: gf_living, type: plant,        at: [3650, 2300], size: [450, 450], height: 1500}
-      - {room: gf_living_bay, type: armchair, at: [700, 150],   size: [750, 750], facing: north, color: '#b7a48a'}
       - {room: gf_living_bay, type: plant,    at: [1900, 550],  size: [450, 450], height: 1300}
       # dining: six-seater with a linear pendant, sideboard, jali screen to the stair, textured wall with clock
       - {room: gf_dining, type: dining_table, at: [600, 600],   size: [1800, 900]}
@@ -188,7 +187,7 @@ levels:
       - {id: A_ff_b2,    type: door, room: ff_bedroom_2,  side: west,  offset: 2000, width: 650}
       - {id: A_ff_b3,    type: door, room: ff_bedroom_3,  side: north, offset: 1600, width: 900}
       - {id: A_ff_batt,  type: door, room: ff_bath_att,   side: west,  offset: 950,  width: 600}
-      - {id: L_ff_lift,  type: door, room: ff_lift,       side: north, offset: 300,  width: 900,  leaf: closed, color: '#9aa3ad'}
+      - {id: L_ff_lift,  type: door, room: ff_lift,       side: north, offset: 300,  width: 900,  leaf: lift, color: '#9aa3ad'}
     canopies:
       - {id: canopy_lower, origin: [4300, -3200], size: [5900, 3200], z: -120, thickness: 60}
     pergolas:
@@ -199,6 +198,7 @@ levels:
       - {room: ff_family, type: feature_wall, at: [60, 57],     size: [1450, 40], facing: north, finish: wallpaper, height: 2650}
       - {room: ff_family, type: feature_wall, at: [2580, 57],   size: [2060, 40], facing: north, finish: wallpaper, height: 2650}
       - {room: ff_family, type: tv_unit,      at: [100, 800],   size: [1800, 450], facing: east}
+      - {room: ff_family, type: tv,           at: [290, 950],   size: [1500, 40], facing: east, mount: 620, finish: stand}
       - {room: ff_family, type: sofa,         at: [2500, 600],  size: [2000, 900], facing: west, color: '#8c9196'}
       - {room: ff_family, type: coffee_table, at: [1350, 1250], size: [900, 550]}
       - {room: ff_family, type: rug,          at: [850, 650],   size: [2000, 1800], color: '#b9bec2'}
@@ -257,7 +257,8 @@ levels:
       - {id: sf_bath,          type: bath,    label: BATH,             color: '#d9cdb8', origin: [5860, 5700], size: [2490, 2490]}
       - {id: sf_family_living, type: living,  label: LOUNGE & LIBRARY, color: '#d8c7a6', origin: [0, 3130],    size: [4900, 2570]}
       - {id: sf_bedroom,       type: bedroom, label: BEDROOM,          color: '#ddd3c3', origin: [4900, 3210], size: [3450, 2490]}
-      - {id: sf_terrace_west,  type: balcony, label: TERRACE GARDEN,   railing: slats, origin: [0, 640],     size: [4500, 2490]}
+      - {id: sf_terrace_west,  type: balcony, label: TERRACE GARDEN,   railing: slats, origin: [0, 640],     size: [3250, 2490]}
+      - {id: sf_lift,          type: lift,    label: LIFT,            color: '#9aa3ad', origin: [3250, 1530], size: [1450, 1600]}
     stairs:
       - {id: st3, type: dogleg, from: SF, to: TR, origin: [60, 5950], flight_width: 1270, gap: 50, risers: 18, tread: 170, landing: 640}
     walls: []
@@ -270,12 +271,13 @@ levels:
       - {id: A_sf_stair, type: door,   room: sf_stair_hall,    side: south, offset: 0,    width: 2970, height: 2850, leaf: false}
       - {id: A_sf_bed,   type: door,   room: sf_bedroom,       side: west,  offset: 1700, width: 700}
       - {id: A_sf_bath,  type: door,   room: sf_bath,          side: south, offset: 600,  width: 750}
+      - {id: L_sf_lift,  type: door,   room: sf_lift,          side: north, offset: 300,  width: 900,  leaf: lift, color: '#9aa3ad'}
       - {id: A_sf_util,  type: door,   room: sf_family_living, side: north, offset: 3300, width: 1000}
     canopies: []
     furniture:
       # lounge & library
       - {room: sf_family_living, type: shelf,      at: [115, 200],   size: [2100, 350], facing: east, height: 2300}
-      - {room: sf_family_living, type: green_wall, at: [2900, 115],  size: [1600, 150], facing: north, height: 2400}
+      - {room: sf_family_living, type: green_wall, at: [2900, 115],  size: [450, 150], facing: north, height: 2400}
       - {room: sf_family_living, type: rug,        at: [500, 450],   size: [1700, 1500], color: '#c9b28a'}
       - {room: sf_family_living, type: bean_bag,   at: [1000, 1250], size: [800, 800], color: '#b0623d'}
       - {room: sf_family_living, type: bean_bag,   at: [1650, 800],  size: [750, 750], color: '#3f6f7a'}
@@ -289,7 +291,6 @@ levels:
       - {room: sf_utility, type: washing_machine, at: [850, 1833], size: [600, 600], facing: south}
       - {room: sf_utility, type: basin,    at: [1550, 1833], size: [800, 600], facing: south}
       - {room: sf_utility, type: storage,  at: [2450, 1033], size: [1400, 380], facing: west, height: 2100}
-      - {room: sf_utility, type: plant,    at: [400, 400],   size: [400, 400], height: 900}
       # bedroom: bed turned clockwise, head on the west wall (door further north on that wall stays clear); wardrobe at the east end
       - {room: sf_bedroom, type: bed,         at: [150, 330],   size: [1500, 1750], facing: east}
       - {room: sf_bedroom, type: night_table, at: [150, 10],    size: [320, 400], facing: east}
@@ -298,14 +299,14 @@ levels:
       - {room: sf_bedroom, type: armchair,    at: [2600, 300],  size: [700, 700], facing: west, color: '#a89580'}
       - {room: sf_bedroom, type: ac,          at: [700, 115],   size: [900, 250], facing: north}
       - {room: sf_bath,    type: wc,       at: [300, 1700], facing: south}
-      - {room: sf_bath,    type: basin,    at: [1925, 800], facing: west}
-      - {room: sf_bath,    type: mirror,   at: [2375, 850], size: [700, 30], facing: west}
+      - {room: sf_bath,    type: basin,    at: [1925, 1250], facing: west}
+      - {room: sf_bath,    type: mirror,   at: [2375, 1300], size: [700, 30], facing: west}
       - {room: sf_bath,    type: shower,   at: [1500, 115], facing: north}
       # terrace garden
-      - {room: sf_terrace_west, type: planter,  at: [100, 100],   size: [4300, 450], height: 600}
+      - {room: sf_terrace_west, type: planter,  at: [100, 100],   size: [3050, 450], height: 600}
       - {room: sf_terrace_west, type: bench,    at: [1500, 1500], size: [1400, 450], facing: south}
       - {room: sf_terrace_west, type: plant,    at: [400, 2100],  size: [500, 500], height: 1400}
-      - {room: sf_terrace_west, type: plant,    at: [4000, 2100], size: [500, 500], height: 1400}
+      - {room: sf_terrace_west, type: plant,    at: [2600, 2100], size: [500, 500], height: 1400}
 
   # ------------------------------------------------------------------ roof terrace
   - id: TR
@@ -375,24 +376,24 @@ garden:
   - {type: hedge,      at: [-1700, -1100], size: [500, 9600],  height: 1600}
   - {type: hedge,      at: [10350, -300],  size: [600, 8800],  height: 1800}
   # front garden: layered planting (shrubs, ferns, wildflowers) around the lawn
-  - {type: shrub,      at: [3800, -3500],  size: [1800, 1800]}
-  - {type: shrub,      at: [3900, -1900],  size: [1500, 1500]}
-  - {type: shrub,      at: [-600, -800],   size: [1400, 1400]}
-  - {type: bush,       at: [700, -3600],   size: [1000, 1000]}
-  - {type: bush,       at: [2800, -1300],  size: [900, 900]}
-  - {type: fern,       at: [600, -2000],   size: [1100, 1100]}
-  - {type: fern,       at: [2700, -3700],  size: [1000, 1000]}
-  - {type: fern,       at: [1300, -900],   size: [900, 900]}
-  - {type: calathea,   at: [4150, -700],   size: [1000, 1000]}
-  - {type: wildflower, at: [1100, -3300],  size: [1100, 1100]}
-  - {type: wildflower, at: [3000, -2600],  size: [1200, 1200]}
-  - {type: wildflower, at: [2000, -1600],  size: [1000, 1000]}
+  - {type: shrub,      at: [3800, -3500],  size: [2700, 2700]}
+  - {type: shrub,      at: [3900, -1900],  size: [2250, 2250]}
+  - {type: shrub,      at: [-600, -800],   size: [2100, 2100]}
+  - {type: bush,       at: [700, -3600],   size: [2400, 2400]}
+  - {type: bush,       at: [2800, -1300],  size: [2160, 2160]}
+  - {type: fern,       at: [600, -2000],   size: [2200, 2200]}
+  - {type: fern,       at: [2700, -3700],  size: [2000, 2000]}
+  - {type: fern,       at: [1300, -900],   size: [1800, 1800]}
+  - {type: calathea,   at: [4150, -700],   size: [1900, 1900]}
+  - {type: wildflower, at: [1100, -3300],  size: [2420, 2420]}
+  - {type: wildflower, at: [3000, -2600],  size: [2640, 2640]}
+  - {type: wildflower, at: [2000, -1600],  size: [2200, 2200]}
   - {type: flower_bed, at: [300, -1900],   size: [2600, 600], color: '#e8e4f0'}
   - {type: tree,       at: [-600, -3000],  size: [2000, 2000], height: 4200}
   - {type: palm,       at: [4300, -4000],  size: [1800, 1800], height: 5500}
-  - {type: bush,       at: [10150, -3800], size: [800, 800]}
-  - {type: bush,       at: [10150, -2700], size: [800, 800]}
-  - {type: bush,       at: [10150, -1600], size: [800, 800]}
+  - {type: bush,       at: [10150, -3800], size: [1920, 1920]}
+  - {type: bush,       at: [10150, -2700], size: [1920, 1920]}
+  - {type: bush,       at: [10150, -1600], size: [1920, 1920]}
   # rear garden
   - {type: paver,      at: [4500, 8750],   size: [700, 450]}
   - {type: paver,      at: [4500, 9450],   size: [700, 450]}
@@ -415,34 +416,34 @@ garden:
   - {type: bench,      at: [7600, 10300],  size: [1400, 450], facing: west}
   - {type: hedge,      at: [-1700, 16200], size: [13000, 700], height: 1600}
   # rear garden: planted borders, ferns under the trees, wildflowers along the path
-  - {type: shrub,      at: [-1000, 9400],  size: [1800, 1800]}
-  - {type: shrub,      at: [-1000, 13100], size: [1900, 1900]}
-  - {type: shrub,      at: [10700, 9400],  size: [1800, 1800]}
-  - {type: shrub,      at: [10800, 12600], size: [1900, 1900]}
-  - {type: shrub,      at: [600, 15700],   size: [1800, 1800]}
-  - {type: shrub,      at: [2800, 15700],  size: [1700, 1700]}
-  - {type: shrub,      at: [4800, 15750],  size: [1700, 1700]}
-  - {type: shrub,      at: [6900, 15700],  size: [1800, 1800]}
-  - {type: shrub,      at: [8800, 15700],  size: [1700, 1700]}
-  - {type: bush,       at: [9900, 13200],  size: [900, 900]}
-  - {type: bush,       at: [7000, 9900],   size: [900, 900]}
-  - {type: bush,       at: [2500, 10400],  size: [900, 900]}
-  - {type: fern,       at: [-100, 10100],  size: [1100, 1100]}
-  - {type: fern,       at: [1400, 11900],  size: [1100, 1100]}
-  - {type: fern,       at: [8600, 10300],  size: [1100, 1100]}
-  - {type: fern,       at: [10100, 11900], size: [1100, 1100]}
-  - {type: fern,       at: [7100, 13500],  size: [1000, 1000]}
-  - {type: fern,       at: [9200, 13300],  size: [1000, 1000]}
-  - {type: calathea,   at: [2800, 12700],  size: [1100, 1100]}
-  - {type: calathea,   at: [7200, 12200],  size: [1100, 1100]}
-  - {type: anthurium,  at: [-900, 8900],   size: [1100, 1100]}
-  - {type: anthurium,  at: [9900, 8900],   size: [1100, 1100]}
-  - {type: wildflower, at: [3750, 9300],   size: [1000, 1000]}
-  - {type: wildflower, at: [5300, 10300],  size: [1000, 1000]}
-  - {type: wildflower, at: [3750, 11300],  size: [1000, 1000]}
-  - {type: wildflower, at: [5300, 11500],  size: [1000, 1000]}
-  - {type: wildflower, at: [2300, 14300],  size: [1100, 1100]}
-  - {type: wildflower, at: [7600, 11700],  size: [1100, 1100]}
+  - {type: shrub,      at: [-1000, 9400],  size: [2700, 2700]}
+  - {type: shrub,      at: [-1000, 13100], size: [2850, 2850]}
+  - {type: shrub,      at: [10700, 9400],  size: [2700, 2700]}
+  - {type: shrub,      at: [10800, 12600], size: [2850, 2850]}
+  - {type: shrub,      at: [600, 15700],   size: [2700, 2700]}
+  - {type: shrub,      at: [2800, 15700],  size: [2550, 2550]}
+  - {type: shrub,      at: [4800, 15750],  size: [2550, 2550]}
+  - {type: shrub,      at: [6900, 15700],  size: [2700, 2700]}
+  - {type: shrub,      at: [8800, 15700],  size: [2550, 2550]}
+  - {type: bush,       at: [9900, 13200],  size: [2160, 2160]}
+  - {type: bush,       at: [7000, 9900],   size: [2160, 2160]}
+  - {type: bush,       at: [2500, 10400],  size: [2160, 2160]}
+  - {type: fern,       at: [-100, 10100],  size: [2200, 2200]}
+  - {type: fern,       at: [1400, 11900],  size: [2200, 2200]}
+  - {type: fern,       at: [8600, 10300],  size: [2200, 2200]}
+  - {type: fern,       at: [10100, 11900], size: [2200, 2200]}
+  - {type: fern,       at: [7100, 13500],  size: [2000, 2000]}
+  - {type: fern,       at: [9200, 13300],  size: [2000, 2000]}
+  - {type: calathea,   at: [2800, 12700],  size: [2090, 2090]}
+  - {type: calathea,   at: [7200, 12200],  size: [2090, 2090]}
+  - {type: anthurium,  at: [-900, 8900],   size: [2090, 2090]}
+  - {type: anthurium,  at: [9900, 8900],   size: [2090, 2090]}
+  - {type: wildflower, at: [3750, 9300],   size: [2200, 2200]}
+  - {type: wildflower, at: [5300, 10300],  size: [2200, 2200]}
+  - {type: wildflower, at: [3750, 11300],  size: [2200, 2200]}
+  - {type: wildflower, at: [5300, 11500],  size: [2200, 2200]}
+  - {type: wildflower, at: [2300, 14300],  size: [2420, 2420]}
+  - {type: wildflower, at: [7600, 11700],  size: [2420, 2420]}
   - {type: flower_bed, at: [6100, 9900],   size: [2400, 600], color: '#d94f70'}
   - {type: flower_bed, at: [300, 9900],    size: [1800, 600], color: '#f2c14e'}
   - {type: tree,       at: [-600, 13200],  size: [2400, 2400], height: 4200}

@@ -2,15 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
 <title>Glenwood House</title>
-  <script type="module" crossorigin src="./assets/index-C5DFY9k_.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-CYIsFDbR.css">
+  <script type="module" crossorigin src="./assets/index-BkQYviES.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-TgQiUGte.css">
 </head>
 <body>
 <canvas id="c"></canvas>
 <div id="hud" class="card"><b>Glenwood House</b><div id="room">Street</div></div>
 <div id="help" class="card">Click to look around (<kbd>Esc</kbd> releases) · <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> walk · <kbd>Shift</kbd> run · <kbd>F</kbd> fly (<kbd>E</kbd>/<kbd>Q</kbd>) · <kbd>L</kbd> room lights</div>
+<div id="touchHelp" class="card">Left thumb: walk · Turn your phone to look around · Right thumb: fine-tune the view</div>
+<button id="menuBtn" class="fab" aria-label="Menu">☰</button>
+<button id="gyroBtn" class="fab" aria-label="Gyroscope look">🧭 Gyro off</button>
+<div id="joyBase"><div id="joyKnob"></div></div>
 <div id="panel" class="card">
   <h3>Go to</h3><div id="tp"></div>
   <h3>Time of day <span id="timeV"></span></h3>

@@ -193,18 +193,18 @@ levels:
     pergolas:
       - {id: pergola_balcony, origin: [4700, -1500], size: [4150, 4710], z: 2750, beam: 150, spacing: 1050, glass: true}
     furniture:
-      # family hall: TV wall on the west, sofa facing it, piano in the south-west corner
-      - {room: ff_family, type: feature_wall, at: [57, 700],    size: [2000, 40], facing: east, finish: slats, height: 2650}
+      # family hall: TV wall on the east, sofa facing it, piano on the west wall
+      - {room: ff_family, type: feature_wall, at: [4603, 60],    size: [1900, 40], facing: west, finish: slats, height: 2650}
       - {room: ff_family, type: feature_wall, at: [60, 57],     size: [1450, 40], facing: north, finish: wallpaper, height: 2650}
       - {room: ff_family, type: feature_wall, at: [2580, 57],   size: [2060, 40], facing: north, finish: wallpaper, height: 2650}
-      - {room: ff_family, type: tv_unit,      at: [100, 800],   size: [1800, 450], facing: east}
-      - {room: ff_family, type: tv,           at: [290, 950],   size: [1500, 40], facing: east, mount: 620, finish: stand}
-      - {room: ff_family, type: sofa,         at: [2500, 600],  size: [2000, 900], facing: west, color: '#8c9196'}
-      - {room: ff_family, type: coffee_table, at: [1350, 1250], size: [900, 550]}
-      - {room: ff_family, type: rug,          at: [850, 650],   size: [2000, 1800], color: '#b9bec2'}
-      - {room: ff_family, type: piano,        at: [4150, 900],  size: [1000, 450], facing: west}
-      - {room: ff_family, type: floor_lamp,   at: [2600, 250],  size: [350, 350]}
-      - {room: ff_family, type: plant,        at: [2250, 2450], size: [450, 450], height: 1500}
+      - {room: ff_family, type: tv_unit,      at: [4150, 400],  size: [1500, 450], facing: west}
+      - {room: ff_family, type: tv,           at: [4370, 525],  size: [1250, 40], facing: west, mount: 620, finish: stand}
+      - {room: ff_family, type: sofa,         at: [1300, 150],  size: [2000, 900], facing: east, color: '#8c9196'}
+      - {room: ff_family, type: coffee_table, at: [2450, 875], size: [900, 550]}
+      - {room: ff_family, type: rug,          at: [1850, 250],  size: [2000, 1800], color: '#b9bec2'}
+      - {room: ff_family, type: piano,        at: [100, 900],   size: [1000, 450], facing: east}
+      - {room: ff_family, type: floor_lamp,   at: [1600, 2200],  size: [350, 350]}
+      - {room: ff_family, type: plant,        at: [4300, 60],   size: [300, 300], height: 1000}
       - {room: ff_family, type: ac,           at: [2600, 57],   size: [900, 250], facing: north}
       # home theatre (former bedroom 1)
       - {room: ff_theatre, type: tv,             at: [57, 300],    size: [1800, 60], facing: east, mount: 650, height: 1050}
@@ -225,8 +225,7 @@ levels:
       # bedroom 3: bed head opposite the bathroom door, wardrobe beside the bathroom door
       - {room: ff_bedroom_3, type: bed,         at: [115, 900],   size: [1500, 2000], facing: east}
       - {room: ff_bedroom_3, type: night_table, at: [115, 450],   size: [420, 400], facing: east}
-      - {room: ff_bedroom_3, type: night_table, at: [115, 2430],  size: [420, 400], facing: east}
-      - {room: ff_bedroom_3, type: closet,      at: [2593, 1600], size: [1500, 600], facing: west}
+      - {room: ff_bedroom_3, type: closet,      at: [115, 2583],  size: [1400, 600], facing: south}
       - {room: ff_bedroom_3, type: rug,         at: [800, 700],   size: [1700, 1900], color: '#bfb4a3'}
       - {room: ff_bedroom_3, type: ac,          at: [57, 1200],   size: [900, 250], facing: east}
       # bathrooms
@@ -277,15 +276,12 @@ levels:
     furniture:
       # lounge & library
       - {room: sf_family_living, type: shelf,      at: [115, 200],   size: [2100, 350], facing: east, height: 2300}
-      - {room: sf_family_living, type: green_wall, at: [2900, 115],  size: [450, 150], facing: north, height: 2400}
       - {room: sf_family_living, type: rug,        at: [500, 450],   size: [1700, 1500], color: '#c9b28a'}
       - {room: sf_family_living, type: bean_bag,   at: [1000, 1250], size: [800, 800], color: '#b0623d'}
       - {room: sf_family_living, type: bean_bag,   at: [1650, 800],  size: [750, 750], color: '#3f6f7a'}
-      - {room: sf_family_living, type: swing,      at: [2550, 1500], size: [900, 900], top: 2800}
       - {room: sf_family_living, type: desk,       at: [4143, 300],  size: [1200, 700], facing: west}
       - {room: sf_family_living, type: chair,      at: [3600, 700],  facing: east, color: '#3a3a3c'}
       - {room: sf_family_living, type: floor_lamp, at: [600, 2050],  size: [350, 350]}
-      - {room: sf_family_living, type: plant,      at: [2350, 2300], size: [500, 500], height: 1700}
       # utility
       - {room: sf_utility, type: washing_machine, at: [200, 1833], size: [600, 600], facing: south}
       - {room: sf_utility, type: washing_machine, at: [850, 1833], size: [600, 600], facing: south}

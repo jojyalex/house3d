@@ -1,0 +1,58 @@
+# Furniture catalogue: maps a furniture `type` in glenwood_house.yaml to a glTF model.
+# Types without an entry (or whose file fails to load) fall back to the built-in procedural shape.
+# Any item in the house YAML can also set `model: models/foo.glb` directly, plus `materials:` overrides.
+#
+# models:
+#   sofa:
+#     file: models/sofa_3seat.glb      # path under app/public/
+#     fit: size                        # size (default): scale to the item's size from the house YAML; none: keep native size
+#     materials:                       # override by material name inside the .glb
+#       fabric: {color: '#8a7f72', roughness: 0.9}
+#     lights:                          # optional: real light at a named node in the model (lamps)
+#       bulb: {intensity: 3, color: '#ffd9a8', distance: 4}
+models:
+  car:
+    file: models/car.glb
+    fit: size
+    rotate_y: 180               # this model's front faces -Z; the app expects +Z
+    color_slots: [Body_Color]   # the YAML `color` repaints only the body, not tyres or glass
+  sofa:
+    file: models/sofa.glb
+    color_slots: [GlamVelvetSofa_fabric_champagne, GlamVelvetSofa_fabric_navy, GlamVelvetSofa_fabric_gray, GlamVelvetSofa_fabric_black, GlamVelvetSofa_fabric_palepink]
+  armchair:
+    file: models/armchair.glb
+    uniform: true
+    color_slots: ['fabric Mystere Mango Velvet', 'fabric Mystere Peacock Velvet']
+  chair:
+    file: models/chair.glb
+    uniform: true
+    color_slots: []
+  coffee_table:
+    file: models/coffee_table.glb
+    rotate_y: 90
+    color_slots: []
+  tv_unit:
+    file: models/cabinet.glb
+    color_slots: []
+  sideboard:
+    file: models/cabinet.glb
+    color_slots: []
+  plant:
+    file: models/plant.glb
+    uniform: true
+    color_slots: []
+  fan:
+    file: models/fan.glb
+    uniform: true
+    y_offset: 2150              # hangs below the false ceiling
+    color_slots: []
+  clock:
+    file: models/clock.glb
+    uniform: true
+    use_mount: true             # height comes from `mount:` in the house YAML
+    color_slots: []
+  desk:
+    file: models/desk.glb
+    color_slots: []
+
+# Credits: see public/models/CREDITS.md

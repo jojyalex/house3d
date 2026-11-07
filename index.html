@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Glenwood House</title>
+  <script type="module" crossorigin src="./assets/index-f6-peZ4i.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CYIsFDbR.css">
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="hud" class="card"><b>Glenwood House</b><div id="room">Street</div></div>
+<div id="help" class="card">Click to look around (<kbd>Esc</kbd> releases) · <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> walk · <kbd>Shift</kbd> run · <kbd>F</kbd> fly (<kbd>E</kbd>/<kbd>Q</kbd>) · <kbd>L</kbd> room lights</div>
+<div id="panel" class="card">
+  <h3>Go to</h3><div id="tp"></div>
+  <h3>Time of day <span id="timeV"></span></h3>
+  <input type="range" id="time" min="5" max="20" step="0.25" value="9.5">
+  <h3>Options</h3>
+  <label class="row"><input type="checkbox" id="tLight" checked> Room lights</label>
+  <label class="row"><input type="checkbox" id="tExt" checked> Outdoor lights (dusk to dawn)</label>
+  <label class="row"><input type="checkbox" id="tFurn" checked> Furniture</label>
+  <label class="row"><input type="checkbox" id="tShadow" checked> Shadows</label>
+  <label class="row"><input type="checkbox" id="tBloom" checked> Glow</label>
+  <label class="row"><input type="checkbox" id="tFly"> Fly mode</label>
+  <label class="row">Quality <select id="q"><option value="mid">Balanced</option><option value="lo">Fast</option><option value="hi">High</option></select></label>
+</div>
+<div id="load">Building the house…</div>
+</body>
+</html>

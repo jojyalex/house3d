@@ -1,0 +1,434 @@
+# Glenwood House - parametric plan model (DRAFT v0.9)
+#
+# Layout traced from the permit drawing (sizes scaled by proportion, about +/-0.3 m) and
+# updated from the photographs in the Images folder (room names, finishes, doors, windows,
+# front canopies and car porch). Items marked `confidence: low` are inferred.
+#
+# Conventions
+#   units: millimetres
+#   plan orientation: as drawn on the sheet (top of the sheet = +y, right = +x)
+#   FRONT of the house (street side, car porch) = bottom of the plan (south, -y)
+#   origin: south-west (bottom-left) outer corner of the ground floor
+#   rooms: origin [x, y] + size [width, depth]; upper floors share the same origin
+#   room types: living, bedroom, kitchen, room, bath, stair, balcony (open, railing), steps (open slab)
+#   room extras: color (floor colour), railing: slats (balconies), notes
+#   openings: room + side (south/north/east/west) + offset along that side + width, type door|window;
+#     leaf: false = open archway without a door leaf. Interior doors are assumed (not on the drawing)
+#   adjoining rooms share exact edges so walls merge cleanly (needed for the walkthrough)
+#   canopies: flat glass canopies, z = height above the level's elevation
+#   pergolas: white beam grid with a glass top; origin/size in plan, z = top height above the level, spacing = beam spacing
+#   furniture: room + type + at [x, y] (lower-left of the footprint, relative to the room origin)
+#     + optional size [w, d] and facing (direction the front of the piece faces). For sofa, bed,
+#     wardrobe and similar, w runs along the front and d is the depth. For counter, curtain and hob,
+#     size is the plain [x extent, y extent]. round_table and fan use `at` as the CENTRE.
+#     types: sofa, armchair, coffee_table, chair, round_table, bed, wardrobe, piano, counter,
+#     wall_cabinet, hob, fridge, wc, basin, shower, curtain, fan
+
+meta:
+  name: Glenwood House
+  version: 0.9
+  status: draft-needs-verification
+  developer: Edens Group (watermark on the photographs)
+  type: detached villa in a gated row of villas, three floors plus roof terrace
+  front_facing: south (bottom of the plan)
+  north: not set
+  source_drawing: Completion drawing, building permit dated 19-10-2013 (plans at 1:100)
+
+reference_images:
+  - file: Images/Front View From Outside.jpg
+    shows: Front facade. Covered car porch with dark paving and a stone-clad pillar, double-leaf
+      timber front door, curtained windows left and right of it, a wood-slatted balcony above
+      the porch, glass canopies at first-floor and roof level, white walls with brown timber accents.
+  - file: Images/Ground Floor - Looking Left.jpg
+    shows: Ground-floor hall running to a dining area (round table, four chairs) with a window wall,
+      false ceiling with cove lighting, timber slat feature wall, doors to a bedroom (wardrobe),
+      stair and a washroom behind a jali screen.
+  - file: Images/Ground Floor - Looking Right.jpg
+    shows: Living room with sofa set, curtained window wall, wallpaper feature wall, wall niche,
+      ceiling fan and cove-lit false ceiling. Timber front door with sidelights on the right.
+  - file: Images/Ground Floor Kitchen - Looking Right.jpg
+    shows: U-shaped kitchen, white cabinets, black granite counters, two windows, chimney, two fridges.
+  - file: Images/Stairs - Multiple Bedroom - Washroom.jpg
+    shows: Collage. Three bedrooms with curtains, AC and wardrobes; a family hall with a piano;
+      kitchen; bathroom with wall-hung WC and shower; dog-leg stair with timber and glass railing,
+      black granite treads and a steel handrail.
+
+defaults:
+  wall_thickness: {external: 230, internal: 115}
+  floor_to_floor: 3000
+  slab_thickness: 150
+
+levels:
+  # ------------------------------------------------------------------ ground floor
+  - id: GF
+    name: Ground floor
+    elevation: 0
+    height: 3000
+    footprint: {origin: [0, 0], size: [8700, 8450]}
+    rooms:
+      - {id: gf_stair_hall, type: stair,   label: STAIR,         color: '#e6dfd2', origin: [0, 5890],    size: [2710, 2560],
+         notes: dog-leg stair as in the photo - first flight on the right climbs away from the dining, landing at the back, second flight returns on the left; black granite treads, dark timber and glass railing; storage under the upper flight behind a white CNC jali screen}
+      - {id: gf_wash,       type: bath,    label: WASH & WC,     color: '#d9cdb8', origin: [2710, 5890], size: [1385, 2560],
+         notes: wash basin in front, small WC behind a partition; textured stone-finish wall with a clock faces the dining}
+      - {id: gf_kitchen,    type: kitchen, label: KITCHEN,       color: '#f2f2ef', origin: [4095, 5890], size: [4605, 2560]}
+      - {id: gf_dining,     type: living,  label: DINING,        color: '#e8e1d4', origin: [0, 3240],    size: [4740, 2650]}
+      - {id: gf_living,     type: living,  label: LIVING ROOM,   color: '#e8e1d4', origin: [4740, 3240], size: [3960, 2650]}
+      - {id: gf_bedroom,    type: bedroom, label: BEDROOM,       color: '#ddd3c3', origin: [0, 0],       size: [3240, 3240]}
+      - {id: gf_toilet_att, type: bath,    label: TOILET,        color: '#d9cdb8', origin: [3240, 0],    size: [1500, 1620]}
+      - {id: gf_lift,       type: lift,    label: LIFT,          color: '#9aa3ad', origin: [3240, 1620], size: [1500, 1620]}
+      - {id: gf_living_bay, type: living,  label: READING BAY,   color: '#e8e1d4', origin: [6440, 2200], size: [2260, 1040]}
+      - {id: gf_car_porch,  type: steps,   label: CAR PORCH,     color: '#4b5059', origin: [4740, 0],    size: [3960, 2200]}
+      - {id: gf_porch_back, type: steps,   label: PORCH,         color: '#4b5059', origin: [4740, 2200], size: [1700, 1040]}
+      - {id: gf_steps_east, type: steps,   label: STEPS,         origin: [8700, 0],    size: [1280, 3240]}
+      - {id: gf_steps_south,type: steps,   label: STEPS,         origin: [4740, -700], size: [5240, 700]}
+    stairs:
+      - {id: st1, type: dogleg, from: GF, to: FF, origin: [60, 5950], flight_width: 1270, gap: 50, risers: 18, tread: 170, landing: 900}
+    walls:
+      - {id: wc_partition, from: [2710, 7190], to: [3450, 7190], thickness: 100, height: 2850}
+    openings:
+      - {id: D_front,  type: door,   room: gf_living,     side: south, offset: 300,  width: 1300, height: 2100, notes: double-leaf timber front door (the only door leaf kept)}
+      - {id: W_bay,    type: window, room: gf_living_bay, side: south, offset: 400,  width: 1400, sill: 600,  height: 1500}
+      - {id: W_bed,    type: window, room: gf_bedroom,    side: south, offset: 600,  width: 2000, sill: 300,  height: 1700}
+      - {id: W_kit,    type: window, room: gf_kitchen,    side: north, offset: 1600, width: 1400, sill: 1000, height: 1200}
+      - {id: W_din,    type: window, room: gf_dining,     side: west,  offset: 650,  width: 1500, sill: 600,  height: 1500}
+      - {id: W_liv_e,  type: window, room: gf_living,     side: east,  offset: 500,  width: 1600, sill: 500,  height: 1700}
+      # all internal doorways are open (no door leaves)
+      - {id: D_kit_back, type: door, room: gf_kitchen,    side: north, offset: 250,  width: 900,  leaf: false}
+      - {id: A_gf_jali,  type: door, room: gf_stair_hall, side: south, offset: 0,    width: 1380, height: 2850, leaf: false}
+      - {id: A_gf_stair, type: door, room: gf_stair_hall, side: south, offset: 1380, width: 1270, height: 2850, leaf: false}
+      - {id: A_gf_wash,  type: door, room: gf_wash,       side: south, offset: 700,  width: 650,  leaf: false}
+      - {id: A_gf_kit,   type: door, room: gf_kitchen,    side: south, offset: 300,  width: 1000, leaf: false}
+      - {id: A_gf_bed,   type: door, room: gf_bedroom,    side: north, offset: 2100, width: 900,  leaf: false}
+      - {id: A_gf_tatt,  type: door, room: gf_toilet_att, side: west,  offset: 950,  width: 600,  leaf: false}
+      - {id: L_gf_lift,  type: door, room: gf_lift,       side: north, offset: 300,  width: 900,  leaf: closed, color: '#9aa3ad'}
+      - {id: A_gf_open,  type: door, room: gf_living,     side: west,  offset: 0,    width: 2650, leaf: false}
+      - {id: A_gf_bay,   type: door, room: gf_living_bay, side: north, offset: 150,  width: 1960, leaf: false}
+    canopies: []
+    furniture:
+      # living: TV feature wall on the north, low sofa facing it
+      - {room: gf_living, type: feature_wall, at: [1100, 2553], size: [2700, 40], facing: south, finish: slats, height: 2650}
+      - {room: gf_living, type: tv_unit,      at: [1450, 2133], size: [2000, 420], facing: south}
+      - {room: gf_living, type: sofa,         at: [1700, 250],  size: [2100, 900], facing: north, color: '#9b9286'}
+      - {room: gf_living, type: coffee_table, at: [2250, 1380], size: [1050, 550]}
+      - {room: gf_living, type: rug,          at: [1350, 150],  size: [2650, 1900], color: '#cdc3b3'}
+      - {room: gf_living, type: floor_lamp,   at: [1300, 300],  size: [350, 350]}
+      - {room: gf_living, type: plant,        at: [3650, 2300], size: [450, 450], height: 1500}
+      - {room: gf_living, type: curtain,      at: [3780, 500],  size: [90, 1600], color: '#d9d0c1'}
+      - {room: gf_living_bay, type: armchair, at: [700, 150],   size: [750, 750], facing: north, color: '#b7a48a'}
+      - {room: gf_living_bay, type: plant,    at: [1900, 550],  size: [450, 450], height: 1300}
+      - {room: gf_living_bay, type: curtain,  at: [350, 120],   size: [1500, 90], color: '#d9d0c1'}
+      # dining: six-seater with a linear pendant, sideboard, jali screen to the stair, textured wall with clock
+      - {room: gf_dining, type: dining_table, at: [600, 600],   size: [1800, 900]}
+      - {room: gf_dining, type: chair,        at: [750, 1520],  facing: south}
+      - {room: gf_dining, type: chair,        at: [1275, 1520], facing: south}
+      - {room: gf_dining, type: chair,        at: [1800, 1520], facing: south}
+      - {room: gf_dining, type: chair,        at: [750, 130],   facing: north}
+      - {room: gf_dining, type: chair,        at: [1275, 130],  facing: north}
+      - {room: gf_dining, type: chair,        at: [1800, 130],  facing: north}
+      - {room: gf_dining, type: pendant,      at: [850, 995],   size: [1300, 110], z: 1650}
+      - {room: gf_dining, type: jali,         at: [60, 2630],   size: [1320, 40], facing: south, height: 2800}
+      - {room: gf_dining, type: feature_wall, at: [2770, 2553], size: [610, 40], facing: south, finish: stone, height: 2850, color: '#cdbb9c'}
+      - {room: gf_dining, type: clock,        at: [2925, 2523], size: [300, 30], facing: south, mount: 1900}
+      - {room: gf_dining, type: plant,        at: [400, 2300],  size: [450, 450], height: 1600}
+      - {room: gf_dining, type: curtain,      at: [120, 650],   size: [90, 1500], color: '#d9d0c1'}
+      # stair: storage under the upper flight
+      - {room: gf_stair_hall, type: storage,  at: [60, 110],    size: [1270, 2380], facing: south, height: 1250}
+      # wash & WC
+      - {room: gf_wash, type: basin,          at: [57, 250],    size: [800, 500], facing: east}
+      - {room: gf_wash, type: mirror,         at: [57, 300],    size: [700, 30], facing: east}
+      - {room: gf_wash, type: wc,             at: [750, 1903],  facing: south}
+      # kitchen: galley, fridges at the east end, back door at the west end
+      - {room: gf_kitchen, type: counter,      at: [1300, 1845], size: [2490, 600]}
+      - {room: gf_kitchen, type: counter,      at: [1400, 115],  size: [2390, 600]}
+      - {room: gf_kitchen, type: hob,          at: [2200, 1900], size: [600, 480]}
+      - {room: gf_kitchen, type: fridge,       at: [3790, 715],  size: [680, 700], facing: west}
+      - {room: gf_kitchen, type: fridge,       at: [3790, 1395], size: [680, 700], facing: west}
+      - {room: gf_kitchen, type: closet,       at: [3790, 115],  size: [600, 700], facing: west, height: 2300}
+      - {room: gf_kitchen, type: wall_cabinet, at: [3000, 2095], size: [790, 350]}
+      - {room: gf_kitchen, type: wall_cabinet, at: [1400, 115],  size: [2390, 350]}
+      # bedroom: wardrobe on the right as you enter, bed head on the wall opposite the toilet door
+      - {room: gf_bedroom, type: closet,      at: [115, 2583],  size: [1900, 600], facing: south}
+      - {room: gf_bedroom, type: bed,         at: [115, 700],   size: [1400, 2000], facing: east}
+      - {room: gf_bedroom, type: night_table, at: [115, 250],   size: [420, 400], facing: east}
+      - {room: gf_bedroom, type: rug,         at: [900, 450],   size: [1700, 1900], color: '#bfb4a3'}
+      - {room: gf_bedroom, type: armchair,    at: [2350, 180],  size: [750, 750], facing: west, color: '#b7a48a'}
+      - {room: gf_bedroom, type: ac,          at: [57, 1000],   size: [900, 250], facing: east}
+      - {room: gf_bedroom, type: curtain,     at: [500, 120],   size: [2200, 90], color: '#d9d0c1'}
+      # attached toilet
+      - {room: gf_toilet_att, type: shower,   at: [115, 115],   size: [700, 800], facing: north}
+      - {room: gf_toilet_att, type: wc,       at: [843, 200],   facing: west}
+      - {room: gf_toilet_att, type: basin,    at: [700, 1163],  size: [600, 400], facing: south}
+
+  # ------------------------------------------------------------------ first floor
+  - id: FF
+    name: First floor
+    elevation: 3000
+    height: 3000
+    footprint: {origin: [0, 0], size: [8650, 8350]}
+    rooms:
+      - {id: ff_stair_hall, type: stair,   label: STAIR,        color: '#e6dfd2', origin: [0, 5940],    size: [3050, 2410]}
+      - {id: ff_theatre,    type: theatre, label: HOME THEATRE, color: '#3d322b', origin: [3050, 5940], size: [2970, 2410]}
+      - {id: ff_bath,       type: bath,    label: BATH,         color: '#d9cdb8', origin: [6020, 5940], size: [2630, 2410]}
+      - {id: ff_family,     type: living,  label: FAMILY HALL,  color: '#e8e1d4', origin: [0, 3210],    size: [4700, 2730]}
+      - {id: ff_bedroom_2,  type: bedroom, label: BEDROOM 2,    color: '#ddd3c3', origin: [4700, 3210], size: [3950, 2730]}
+      - {id: ff_bedroom_3,  type: bedroom, label: BEDROOM 3,    color: '#ddd3c3', origin: [0, 0],       size: [3250, 3210]}
+      - {id: ff_bath_att,   type: bath,    label: BATH,         color: '#d9cdb8', origin: [3250, 0],    size: [1450, 1605]}
+      - {id: ff_lift,       type: lift,    label: LIFT,         color: '#9aa3ad', origin: [3250, 1605], size: [1450, 1605]}
+      - {id: ff_balcony,    type: balcony, label: BALCONY,      railing: slats,   origin: [4900, 0],    size: [3750, 3210]}
+    stairs:
+      - {id: st2, type: dogleg, from: FF, to: SF, origin: [60, 5950], flight_width: 1270, gap: 50, risers: 18, tread: 170, landing: 800}
+    walls: []
+    openings:
+      - {id: W_bed3,   type: window, room: ff_bedroom_3, side: south, offset: 600,  width: 1800, sill: 400, height: 1800}
+      - {id: W_ff_b2,  type: window, room: ff_bedroom_2, side: east,  offset: 300,  width: 1500, sill: 700, height: 1400}
+      - {id: D_bal,    type: door,   room: ff_bedroom_2, side: south, offset: 2300, width: 1400, leaf: false, notes: sliding glass door to the balcony}
+      - {id: A_ff_stair, type: door, room: ff_stair_hall, side: south, offset: 0,    width: 3050, height: 2850, leaf: false}
+      - {id: A_ff_th,    type: door, room: ff_theatre,    side: south, offset: 800,  width: 850,  leaf: false}
+      - {id: A_ff_bath,  type: door, room: ff_bath,       side: south, offset: 400,  width: 750,  leaf: false}
+      - {id: A_ff_b2,    type: door, room: ff_bedroom_2,  side: west,  offset: 2000, width: 650,  leaf: false}
+      - {id: A_ff_b3,    type: door, room: ff_bedroom_3,  side: north, offset: 1600, width: 900,  leaf: false}
+      - {id: A_ff_batt,  type: door, room: ff_bath_att,   side: west,  offset: 950,  width: 600,  leaf: false}
+      - {id: L_ff_lift,  type: door, room: ff_lift,       side: north, offset: 300,  width: 900,  leaf: closed, color: '#9aa3ad'}
+    canopies:
+      - {id: canopy_lower, origin: [4300, -3200], size: [5900, 3200], z: -120, thickness: 60}
+    pergolas:
+      - {id: pergola_balcony, origin: [4700, -1500], size: [4150, 4710], z: 2750, beam: 150, spacing: 1050, glass: true}
+    furniture:
+      # family hall: TV wall on the west, sofa facing it, piano in the south-west corner
+      - {room: ff_family, type: feature_wall, at: [57, 700],    size: [2000, 40], facing: east, finish: slats, height: 2650}
+      - {room: ff_family, type: tv_unit,      at: [100, 800],   size: [1800, 450], facing: east}
+      - {room: ff_family, type: sofa,         at: [2500, 600],  size: [2000, 900], facing: west, color: '#8c9196'}
+      - {room: ff_family, type: coffee_table, at: [1350, 1250], size: [900, 550]}
+      - {room: ff_family, type: rug,          at: [850, 650],   size: [2000, 1800], color: '#b9bec2'}
+      - {room: ff_family, type: piano,        at: [700, 60],    size: [1450, 600], facing: north}
+      - {room: ff_family, type: floor_lamp,   at: [2600, 250],  size: [350, 350]}
+      - {room: ff_family, type: plant,        at: [2250, 2450], size: [450, 450], height: 1500}
+      - {room: ff_family, type: ac,           at: [2600, 57],   size: [900, 250], facing: north}
+      # home theatre (former bedroom 1)
+      - {room: ff_theatre, type: tv,             at: [57, 300],    size: [1800, 60], facing: east, mount: 650, height: 1050}
+      - {room: ff_theatre, type: speaker,        at: [120, 2050],  size: [250, 220], height: 1100}
+      - {room: ff_theatre, type: speaker,        at: [120, 60],    size: [250, 220], height: 1100}
+      - {room: ff_theatre, type: acoustic_panel, at: [300, 2235],  size: [2400, 60], facing: south, height: 2300}
+      - {room: ff_theatre, type: acoustic_panel, at: [1750, 57],   size: [1100, 60], facing: north, height: 2300}
+      - {room: ff_theatre, type: recliner,       at: [1700, 350],  size: [1750, 950], facing: west, seats: 3}
+      - {room: ff_theatre, type: rug,            at: [400, 450],   size: [1200, 1500], color: '#5a1f24'}
+      # bedroom 2: bed head on the wall opposite the bathroom door, wardrobe beside the bathroom door
+      - {room: ff_bedroom_2, type: bed,         at: [400, 115],   size: [1500, 1950], facing: north}
+      - {room: ff_bedroom_2, type: night_table, at: [57, 115],    size: [330, 400], facing: north}
+      - {room: ff_bedroom_2, type: night_table, at: [1920, 115],  size: [350, 400], facing: north}
+      - {room: ff_bedroom_2, type: closet,      at: [2520, 2073], size: [1310, 600], facing: south}
+      - {room: ff_bedroom_2, type: rug,         at: [250, 800],   size: [2000, 1600], color: '#bfb4a3'}
+      - {room: ff_bedroom_2, type: armchair,    at: [3050, 700],  size: [700, 700], facing: west, color: '#a89580'}
+      - {room: ff_bedroom_2, type: floor_lamp,  at: [3400, 1500], size: [350, 350]}
+      - {room: ff_bedroom_2, type: ac,          at: [800, 57],    size: [900, 250], facing: north}
+      - {room: ff_bedroom_2, type: curtain,     at: [3740, 300],  size: [90, 1500], color: '#d9d0c1'}
+      # bedroom 3: bed head opposite the bathroom door, wardrobe beside the bathroom door
+      - {room: ff_bedroom_3, type: bed,         at: [115, 900],   size: [1500, 2000], facing: east}
+      - {room: ff_bedroom_3, type: night_table, at: [115, 450],   size: [420, 400], facing: east}
+      - {room: ff_bedroom_3, type: night_table, at: [115, 2430],  size: [420, 400], facing: east}
+      - {room: ff_bedroom_3, type: closet,      at: [2593, 1600], size: [1500, 600], facing: west}
+      - {room: ff_bedroom_3, type: rug,         at: [800, 700],   size: [1700, 1900], color: '#bfb4a3'}
+      - {room: ff_bedroom_3, type: ac,          at: [57, 1200],   size: [900, 250], facing: east}
+      - {room: ff_bedroom_3, type: curtain,     at: [600, 120],   size: [1800, 90], color: '#d9d0c1'}
+      # bathrooms
+      - {room: ff_bath_att,  type: shower,   at: [115, 115],   size: [700, 800], facing: north}
+      - {room: ff_bath_att,  type: wc,       at: [793, 200],   facing: west}
+      - {room: ff_bath_att,  type: basin,    at: [650, 1148],  size: [600, 400], facing: south}
+      - {room: ff_bath,      type: wc,       at: [300, 1700],  facing: south}
+      - {room: ff_bath,      type: basin,    at: [2065, 800],  facing: west}
+      - {room: ff_bath,      type: mirror,   at: [2545, 850],  size: [700, 30], facing: west}
+      - {room: ff_bath,      type: shower,   at: [1500, 115],  facing: north}
+      # balcony
+      - {room: ff_balcony,   type: armchair,   at: [800, 1500],  facing: south, color: '#d8cfc0'}
+      - {room: ff_balcony,   type: armchair,   at: [1900, 1500], facing: south, color: '#d8cfc0'}
+      - {room: ff_balcony,   type: side_table, at: [1725, 1100], size: [450, 450]}
+      - {room: ff_balcony,   type: plant,      at: [400, 400],   size: [500, 500], height: 1300}
+      - {room: ff_balcony,   type: plant,      at: [3300, 400],  size: [500, 500], height: 1300}
+      - {room: ff_balcony,   type: plant,      at: [3300, 2700], size: [450, 450], height: 1100}
+
+  # ------------------------------------------------------------------ second floor
+  - id: SF
+    name: Second floor
+    elevation: 6000
+    height: 3000
+    footprint: {origin: [0, 0], size: [8350, 8190]}
+    rooms:
+      - {id: sf_stair_hall,    type: stair,   label: STAIR,            color: '#e6dfd2', origin: [0, 5700],    size: [2970, 2490]}
+      - {id: sf_utility,       type: utility, label: UTILITY,          color: '#e2dfd6', origin: [2970, 5700], size: [2890, 2490]}
+      - {id: sf_bath,          type: bath,    label: BATH,             color: '#d9cdb8', origin: [5860, 5700], size: [2490, 2490]}
+      - {id: sf_family_living, type: living,  label: LOUNGE & LIBRARY, color: '#d8c7a6', origin: [0, 3130],    size: [4900, 2570]}
+      - {id: sf_bedroom,       type: bedroom, label: BEDROOM,          color: '#ddd3c3', origin: [4900, 3210], size: [3450, 2490]}
+      - {id: sf_terrace_west,  type: balcony, label: TERRACE GARDEN,   railing: slats, origin: [0, 640],     size: [4500, 2490]}
+    stairs:
+      - {id: st3, type: dogleg, from: SF, to: TR, origin: [60, 5950], flight_width: 1270, gap: 50, risers: 18, tread: 170, landing: 640}
+    walls: []
+    openings:
+      - {id: W_sf_bed,   type: window, room: sf_bedroom,       side: south, offset: 2000, width: 1300, sill: 900,  height: 1200}
+      - {id: W_sf_util,  type: window, room: sf_utility,       side: north, offset: 900,  width: 1200, sill: 1000, height: 1000}
+      - {id: D_sf_fam,   type: door,   room: sf_family_living, side: south, offset: 1200, width: 1500, leaf: false, notes: sliding glass door to the terrace garden}
+      - {id: A_sf_stair, type: door,   room: sf_stair_hall,    side: south, offset: 0,    width: 2970, height: 2850, leaf: false}
+      - {id: A_sf_bed,   type: door,   room: sf_bedroom,       side: west,  offset: 1700, width: 700,  leaf: false}
+      - {id: A_sf_bath,  type: door,   room: sf_bath,          side: south, offset: 600,  width: 750,  leaf: false}
+      - {id: A_sf_util,  type: door,   room: sf_family_living, side: north, offset: 3300, width: 1000, leaf: false}
+    canopies: []
+    furniture:
+      # lounge & library
+      - {room: sf_family_living, type: shelf,      at: [115, 200],   size: [2100, 350], facing: east, height: 2300}
+      - {room: sf_family_living, type: green_wall, at: [2900, 115],  size: [1600, 150], facing: north, height: 2400}
+      - {room: sf_family_living, type: rug,        at: [500, 450],   size: [1700, 1500], color: '#c9b28a'}
+      - {room: sf_family_living, type: bean_bag,   at: [1000, 1250], size: [800, 800], color: '#b0623d'}
+      - {room: sf_family_living, type: bean_bag,   at: [1650, 800],  size: [750, 750], color: '#3f6f7a'}
+      - {room: sf_family_living, type: swing,      at: [2550, 1500], size: [900, 900], top: 2800}
+      - {room: sf_family_living, type: desk,       at: [4143, 300],  size: [1200, 700], facing: west}
+      - {room: sf_family_living, type: chair,      at: [3600, 700],  facing: east, color: '#3a3a3c'}
+      - {room: sf_family_living, type: floor_lamp, at: [600, 2050],  size: [350, 350]}
+      - {room: sf_family_living, type: plant,      at: [2350, 2300], size: [500, 500], height: 1700}
+      # utility
+      - {room: sf_utility, type: washing_machine, at: [200, 1833], size: [600, 600], facing: south}
+      - {room: sf_utility, type: washing_machine, at: [850, 1833], size: [600, 600], facing: south}
+      - {room: sf_utility, type: basin,    at: [1550, 1833], size: [800, 600], facing: south}
+      - {room: sf_utility, type: storage,  at: [2450, 1033], size: [1400, 380], facing: west, height: 2100}
+      - {room: sf_utility, type: plant,    at: [400, 400],   size: [400, 400], height: 900}
+      # bedroom: bed head opposite the bathroom door, wardrobe beside the bathroom door
+      - {room: sf_bedroom, type: bed,         at: [400, 115],   size: [1500, 1800], facing: north}
+      - {room: sf_bedroom, type: night_table, at: [60, 115],    size: [320, 400], facing: north}
+      - {room: sf_bedroom, type: night_table, at: [1930, 115],  size: [380, 400], facing: north}
+      - {room: sf_bedroom, type: closet,      at: [2360, 1833], size: [975, 600], facing: south}
+      - {room: sf_bedroom, type: rug,         at: [250, 700],   size: [1950, 1500], color: '#bfb4a3'}
+      - {room: sf_bedroom, type: armchair,    at: [2600, 300],  size: [700, 700], facing: west, color: '#a89580'}
+      - {room: sf_bedroom, type: ac,          at: [700, 115],   size: [900, 250], facing: north}
+      - {room: sf_bath,    type: wc,       at: [300, 1700], facing: south}
+      - {room: sf_bath,    type: basin,    at: [1925, 800], facing: west}
+      - {room: sf_bath,    type: mirror,   at: [2375, 850], size: [700, 30], facing: west}
+      - {room: sf_bath,    type: shower,   at: [1500, 115], facing: north}
+      # terrace garden
+      - {room: sf_terrace_west, type: planter,  at: [100, 100],   size: [4300, 450], height: 600}
+      - {room: sf_terrace_west, type: bench,    at: [1500, 1500], size: [1400, 450], facing: south}
+      - {room: sf_terrace_west, type: plant,    at: [400, 2100],  size: [500, 500], height: 1400}
+      - {room: sf_terrace_west, type: plant,    at: [4000, 2100], size: [500, 500], height: 1400}
+
+  # ------------------------------------------------------------------ roof terrace
+  - id: TR
+    name: Roof terrace
+    elevation: 9000
+    height: 2400
+    footprint: {origin: [0, 0], size: [8350, 8190]}
+    rooms:
+      - {id: tr_stair_headroom, type: stair, label: STAIR HEADROOM, origin: [0, 5700], size: [2970, 2490]}
+    stairs: []
+    walls:
+      - {id: p_west,   from: [0, 3130],    to: [0, 5700],     thickness: 115, height: 1000}
+      - {id: p_north,  from: [2970, 8190], to: [8350, 8190],  thickness: 115, height: 1000}
+      - {id: p_east,   from: [8350, 3210], to: [8350, 8190],  thickness: 115, height: 1000}
+      - {id: p_south1, from: [0, 3130],    to: [4500, 3130],  thickness: 115, height: 1000}
+      - {id: p_south2, from: [4900, 3210], to: [8350, 3210],  thickness: 115, height: 1000}
+    openings:
+      - {id: A_tr_exit, type: door, room: tr_stair_headroom, side: south, offset: 0, width: 2970, height: 2200, leaf: false}
+    canopies: []
+    pergolas:
+      - {id: pergola_roof, origin: [1000, 3400], size: [3400, 2000], z: 2600, beam: 120, spacing: 850, glass: false}
+
+# Items outside the main block
+outbuildings:
+  - id: driveway
+    label: DRIVEWAY
+    style: paved
+    origin: [4740, -5200]         # paved forecourt in front of the covered car porch, under the lower glass canopy
+    size: [5240, 4500]            # from the porch steps to the street; depth estimated
+    surface: dark grey and black patterned interlocking pavers
+    confidence: low
+  - id: sit_out
+    label: SIT OUT
+    size: [3500, 2000]            # read as 350 x 200 on the drawing
+    confidence: medium
+  - id: soak_pit
+    label: SOAK PIT
+    size: [1000, 1000]
+    confidence: low
+  - id: rainwater_tank
+    label: RAINWATER HARVESTING TANK
+    size: [null, null]
+    notes: plan and section AA are on the drawing
+
+# Facade details seen in the front photograph
+facade_features:
+  - {id: stone_pillar, type: stone_pillar, origin: [4560, -380], size: [520, 380], z: 0, height: 8900, confidence: low,
+     notes: stone-clad pillar at the west edge of the car porch, rising to the roof}
+  - {id: porch_column, type: column, origin: [8470, 0], size: [230, 230], z: 0, height: 2850, confidence: low,
+     notes: post at the front-right corner of the car porch carrying the balcony above}
+
+# Neighbouring villas, as simple massing only (used by the render, not by the plan)
+context_buildings:
+  - {id: west_neighbour, origin: [-9800, -1200], size: [8000, 9800], height: 9000}
+  - {id: east_neighbour, origin: [11800, -1200], size: [8000, 9800], height: 8600}
+
+# Garden, outdoor amenities and roof terrace items. Absolute plan coordinates.
+# Items without a level sit on the ground (200 below the ground-floor level); `level` puts them on that floor,
+# `z` lifts them further. tree, palm, plant, bean_bag, swing, outdoor_table, side_table, water_tank: `at` is the centre.
+garden:
+  # car porch
+  - {type: car,        level: GF, at: [5900, -2300], size: [1800, 4400], facing: south, color: '#c8ccd2'}
+  - {type: ev_charger, level: GF, at: [4800, 1300],  size: [300, 150], facing: east}
+  # front garden
+  - {type: tree,       at: [1800, -2600],  size: [2600, 2600], height: 5200}
+  - {type: flower_bed, at: [300, -1000],   size: [4200, 700]}
+  - {type: hedge,      at: [-1700, -1100], size: [500, 9600],  height: 1600}
+  - {type: hedge,      at: [10350, -300],  size: [600, 8800],  height: 1800}
+  # rear garden
+  - {type: paver,      at: [4500, 8750],   size: [700, 450]}
+  - {type: paver,      at: [4500, 9450],   size: [700, 450]}
+  - {type: paver,      at: [4500, 10150],  size: [700, 450]}
+  - {type: paver,      at: [4500, 10850],  size: [700, 450]}
+  - {type: paver,      at: [4500, 11550],  size: [700, 450]}
+  - {type: flower_bed, at: [300, 9000],    size: [3500, 700]}
+  - {type: flower_bed, at: [6100, 9000],   size: [2400, 800], color: '#6fa84a'}
+  - {type: gazebo,     at: [3600, 12000],  size: [3000, 3000], height: 2600}
+  - {type: outdoor_table, at: [5100, 13500], size: [1000, 1000]}
+  - {type: chair,      at: [4875, 12650],  facing: north}
+  - {type: chair,      at: [4875, 13900],  facing: south}
+  - {type: chair,      at: [4250, 13275],  facing: east}
+  - {type: chair,      at: [5500, 13275],  facing: west}
+  - {type: tree,       at: [500, 11000],   size: [2600, 2600], height: 4500}
+  - {type: tree,       at: [9300, 11000],  size: [2800, 2800], height: 4800}
+  - {type: tree,       at: [8000, 14200],  size: [3200, 3200], height: 5500}
+  - {type: palm,       at: [1500, 14500],  size: [2400, 2400], height: 8000}
+  - {type: palm,       at: [10200, 15200], size: [2400, 2400], height: 7500}
+  - {type: bench,      at: [7600, 10300],  size: [1400, 450], facing: west}
+  - {type: hedge,      at: [-1700, 16200], size: [13000, 700], height: 1600}
+  # roof terrace
+  - {type: planter,    level: TR, at: [200, 3250],  size: [4100, 450], height: 550}
+  - {type: planter,    level: TR, at: [5100, 3330], size: [3000, 450], height: 550}
+  - {type: lounger,    level: TR, at: [2700, 3750], size: [700, 1900], facing: south}
+  - {type: lounger,    level: TR, at: [3600, 3750], size: [700, 1900], facing: south}
+  - {type: outdoor_table, level: TR, at: [1300, 4600], size: [800, 800]}
+  - {type: plant,      level: TR, at: [7800, 4400], size: [600, 600], height: 1600}
+  - {type: plant,      level: TR, at: [7800, 5300], size: [600, 600], height: 1600}
+  - {type: solar_panel, level: TR, at: [5950, 6100], size: [1000, 1700]}
+  - {type: solar_panel, level: TR, at: [7050, 6100], size: [1000, 1700]}
+  - {type: solar_panel, level: TR, at: [3200, 6100], size: [1000, 1700]}
+  - {type: solar_panel, level: TR, at: [4300, 6100], size: [1000, 1700]}
+  - {type: water_tank, level: TR, z: 2400, at: [800, 6900], size: [1100, 1100], height: 1200}
+
+finishes:
+  floors: cream marble-look vitrified tiles in living, dining, hall and bedrooms; white tiles in the kitchen; black granite stair treads
+  walls: white emulsion, wallpapered feature walls, timber slat panelling in the hall
+  ceilings: cove-lit false ceilings in living, dining and hall; ceiling fans and AC in rooms
+  doors: dark timber panel doors; front door double leaf with sidelights
+  facade: white walls, stone-clad pillar at the porch, brown timber slat balconies, glass canopies
+
+site:
+  plot_boundary: []              # TODO: from the site plan
+  setbacks: {front: null, rear: null, left: null, right: null}
+  neighbours: houses directly on both sides (the villa is in a row)
+
+schedule:
+  doors: []       # TODO: the schedule table on the drawing is too blurry to read
+  windows: []
+
+todo:
+  - Replace scaled sizes with the written dimensions from the drawing
+  - Confirm which wall the front door is on and where the washroom sits relative to the stair
+  - Trace real walls, then replace the approximate doors and windows using the schedule
+  - Replace the placeholder stair with the real dog-leg stair
+  - Photograph or measure the car porch to fix its depth and the canopy sizes
+  - Place the sit-out, soak pit and tank from the site plan

@@ -51,8 +51,40 @@ models:
     uniform: true
     use_mount: true             # height comes from `mount:` in the house YAML
     color_slots: []
+  bed:
+    file: models/bed.glb          # Innerscene double bed with duvet and pillows (CC0)
+    color_slots: ['Original blue_fabric upholstery']   # a `color:` on a bed in the house YAML repaints the duvet
+    materials:                    # cozy warm palette instead of the model's teal and blue
+      'Original teal upholstery': {color: '#a58f78', roughness: 0.95}          # headboard
+      'Original blue_fabric upholstery': {color: '#d9cdb9', roughness: 0.97}   # duvet
+      'Original linen upholstery': {color: '#efe6d6', roughness: 0.95}         # pillows
   desk:
     file: models/desk.glb
+    color_slots: []
+  # outdoor greenery (Poly Haven, CC0): one entry per plant type used in the `garden:` list
+  shrub:
+    file: models/shrub_02/shrub_02_1k.gltf
+    uniform: true
+    color_slots: []
+  bush:
+    file: models/shrub_04/shrub_04_1k.gltf
+    uniform: true
+    color_slots: []
+  fern:
+    file: models/fern_02/fern_02_1k.gltf
+    uniform: true
+    color_slots: []
+  calathea:
+    file: models/calathea_orbifolia_01/calathea_orbifolia_01_1k.gltf
+    uniform: true
+    color_slots: []
+  anthurium:
+    file: models/anthurium_botany_01/anthurium_botany_01_1k.gltf
+    uniform: true
+    color_slots: []
+  wildflower:
+    file: models/flower_gazania/flower_gazania_1k.gltf
+    uniform: true
     color_slots: []
 
 # Credits: see public/models/CREDITS.md
